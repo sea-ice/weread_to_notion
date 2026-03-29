@@ -399,7 +399,11 @@ if __name__ == "__main__":
     latest_sort = get_sort()
     books = get_notebooklist()
     if books != None:
+        start_index_env = os.getenv("START_BOOK_INDEX", "1")
+        start_book_index = int(start_index_env) - 1 if start_index_env.isdigit() else 0
         for index, book in enumerate(books):
+            if index < start_book_index:
+                continue
             sort = book["sort"]
             if sort <= latest_sort:
                 continue

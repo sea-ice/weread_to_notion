@@ -2,6 +2,12 @@ name: weread sync
 
 on:
   workflow_dispatch:
+    inputs:
+      start_book_index:
+        description: '从第几本书开始同步 (如果不设置默认从第1本开始)'
+        required: false
+        default: '1'
+        type: string
   schedule:
     - cron: "0 0 * * *"
 jobs:
@@ -17,6 +23,7 @@ jobs:
       CC_ID: ${{ secrets.CC_ID }}
       CC_PASSWORD: ${{ secrets.CC_PASSWORD }}
       YEAR: ${{ vars.YEAR }}
+      START_BOOK_INDEX: ${{ github.event.inputs.start_book_index || vars.START_BOOK_INDEX || '1' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
