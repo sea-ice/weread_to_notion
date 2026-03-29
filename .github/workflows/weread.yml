@@ -3,6 +3,10 @@ name: weread sync
 on:
   workflow_dispatch:
     inputs:
+      weread_cookie:
+        description: '微信读书 Cookie (如果不设置则使用 Secrets 中的配置)'
+        required: false
+        type: string
       start_book_index:
         description: '从第几本书开始同步 (如果不设置默认从第1本开始)'
         required: false
@@ -18,7 +22,7 @@ jobs:
       NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
       NOTION_PAGE: ${{ secrets.NOTION_PAGE }}
       NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
-      WEREAD_COOKIE: ${{ secrets.WEREAD_COOKIE }}
+      WEREAD_COOKIE: ${{ github.event.inputs.weread_cookie || secrets.WEREAD_COOKIE }}
       CC_URL: ${{ secrets.CC_URL }}
       CC_ID: ${{ secrets.CC_ID }}
       CC_PASSWORD: ${{ secrets.CC_PASSWORD }}
